@@ -1,0 +1,746 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The 4 Decisions Diagnostic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --paper: #FBF8F3;
+    --ink: #1A1A1A;
+    --stone: #6B6B6B;
+    --stone-light: #B8B5AE;
+    --rule: #D9D4CB;
+    --coral: #C8553D;
+    --coral-deep: #A8412C;
+    --olive: #7A8450;
+    --olive-deep: #5F6A3D;
+    --slate: #4A6B7C;
+    --slate-deep: #355463;
+    --ochre: #C49A3D;
+    --ochre-deep: #9C7826;
+    --terracotta: #A05A3C;
+    --terracotta-deep: #7E4327;
+    --olive-tint: #EDEFE3;
+    --slate-tint: #E3EAEE;
+    --ochre-tint: #F4ECD6;
+    --terracotta-tint: #EFDDD2;
+    --coral-tint: #F6E6E0;
+    --sans: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    --serif: "DM Serif Display", Georgia, serif;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { -webkit-text-size-adjust: 100%; }
+
+  body {
+    background: #E8E4DC;
+    font-family: var(--sans);
+    color: var(--ink);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+    padding: 32px 16px 80px;
+  }
+
+  .wrap {
+    max-width: 720px;
+    margin: 0 auto;
+    background: var(--paper);
+    border: 1px solid var(--rule);
+    box-shadow: 0 1px 0 rgba(0,0,0,0.02), 0 18px 50px rgba(0,0,0,0.08);
+  }
+
+  /* ---------- Cover ---------- */
+  .cover {
+    padding: 48px 44px 40px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .eyebrow {
+    font-family: var(--sans);
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--coral-deep);
+    margin-bottom: 14px;
+  }
+  .cover h1 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 1.08;
+    letter-spacing: -0.01em;
+    margin-bottom: 20px;
+  }
+  .cover h1 em { color: var(--coral); font-style: italic; }
+  .lead {
+    font-size: 16px;
+    color: var(--ink);
+    max-width: 52ch;
+    margin-bottom: 22px;
+  }
+  .scale-note {
+    font-size: 14px;
+    color: var(--stone);
+    border-top: 1px solid var(--rule);
+    padding-top: 18px;
+    max-width: 56ch;
+  }
+  .scale-note strong { color: var(--ink); font-weight: 700; }
+
+  /* ---------- Identity fields ---------- */
+  .who {
+    padding: 26px 44px;
+    border-bottom: 1px solid var(--rule);
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+  }
+  .who .field { flex: 1 1 220px; }
+  .who label {
+    display: block;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--stone);
+    margin-bottom: 7px;
+  }
+  .who input {
+    width: 100%;
+    font-family: var(--sans);
+    font-size: 15px;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: 10px 12px;
+  }
+  .who input:focus { outline: 2px solid var(--coral); outline-offset: 1px; }
+
+  /* ---------- Pillar sections ---------- */
+  .pillar { padding: 0 0 8px; }
+  .pillar-band {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding: 14px 44px;
+    color: #fff;
+  }
+  .pillar-band .pb-name {
+    font-family: var(--sans);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+  .pillar-band .pb-count { font-size: 12px; opacity: 0.85; }
+  .pillar.people    .pillar-band { background: var(--olive); }
+  .pillar.strategy  .pillar-band { background: var(--slate); }
+  .pillar.execution .pillar-band { background: var(--ochre); }
+  .pillar.cash      .pillar-band { background: var(--terracotta); }
+
+  .pillar-head { padding: 22px 44px 4px; }
+  .pillar-eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    margin-bottom: 6px;
+  }
+  .pillar-title {
+    font-family: var(--serif);
+    font-size: 24px;
+    line-height: 1.12;
+  }
+  .pillar-title em { font-style: italic; }
+  .pillar.people    .pillar-eyebrow, .pillar.people    .pillar-title em { color: var(--olive-deep); }
+  .pillar.strategy  .pillar-eyebrow, .pillar.strategy  .pillar-title em { color: var(--slate-deep); }
+  .pillar.execution .pillar-eyebrow, .pillar.execution .pillar-title em { color: var(--ochre-deep); }
+  .pillar.cash      .pillar-eyebrow, .pillar.cash      .pillar-title em { color: var(--terracotta-deep); }
+
+  /* ---------- Questions ---------- */
+  .q {
+    padding: 20px 44px;
+    border-bottom: 1px solid var(--rule);
+  }
+  .q:last-child { border-bottom: none; }
+  .q-text { font-size: 15.5px; line-height: 1.45; margin-bottom: 14px; }
+  .q-num { color: var(--stone-light); font-weight: 700; margin-right: 8px; }
+
+  .scale {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .scale-ends {
+    font-size: 11px;
+    color: var(--stone);
+    white-space: nowrap;
+    flex: 0 0 auto;
+    width: 64px;
+  }
+  .scale-ends.right { text-align: right; }
+  .opts {
+    display: flex;
+    gap: 8px;
+    flex: 1 1 auto;
+    justify-content: center;
+  }
+  .opt {
+    flex: 1 1 0;
+    max-width: 56px;
+    min-height: 46px;
+    border: 1px solid var(--rule);
+    background: #fff;
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: transform 0.08s ease, background 0.12s ease, color 0.12s ease, border-color 0.12s ease;
+  }
+  .opt:hover { border-color: var(--stone); }
+  .opt:active { transform: scale(0.96); }
+  .opt:focus-visible { outline: 2px solid var(--coral); outline-offset: 2px; }
+
+  .pillar.people    .opt.sel { background: var(--olive);      border-color: var(--olive-deep);      color: #fff; }
+  .pillar.strategy  .opt.sel { background: var(--slate);      border-color: var(--slate-deep);      color: #fff; }
+  .pillar.execution .opt.sel { background: var(--ochre);      border-color: var(--ochre-deep);      color: #fff; }
+  .pillar.cash      .opt.sel { background: var(--terracotta); border-color: var(--terracotta-deep); color: #fff; }
+
+  /* ---------- Progress + action ---------- */
+  .actionbar {
+    position: sticky;
+    bottom: 0;
+    background: var(--paper);
+    border-top: 1px solid var(--rule);
+    padding: 16px 44px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    box-shadow: 0 -8px 24px rgba(0,0,0,0.05);
+  }
+  .progress-text { font-size: 13px; color: var(--stone); }
+  .progress-text b { color: var(--ink); }
+  .btn {
+    font-family: var(--sans);
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: #fff;
+    background: var(--coral);
+    border: none;
+    border-radius: 3px;
+    padding: 13px 22px;
+    cursor: pointer;
+    transition: background 0.15s ease, opacity 0.15s ease;
+  }
+  .btn:hover { background: var(--coral-deep); }
+  .btn:disabled { background: var(--stone-light); cursor: not-allowed; }
+  .btn.ghost {
+    background: transparent;
+    color: var(--coral-deep);
+    border: 1px solid var(--coral);
+  }
+  .btn.ghost:hover { background: var(--coral-tint); }
+
+  /* ---------- Results ---------- */
+  #results { display: none; padding: 40px 44px 8px; }
+  #results h2 {
+    font-family: var(--serif);
+    font-weight: 400;
+    font-size: 30px;
+    margin-bottom: 6px;
+  }
+  #results .sub { color: var(--stone); font-size: 14px; margin-bottom: 26px; }
+
+  .score-row {
+    display: grid;
+    grid-template-columns: 96px 1fr 96px;
+    align-items: center;
+    gap: 14px;
+    padding: 13px 0;
+    border-bottom: 1px solid var(--rule);
+  }
+  .score-name {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+  }
+  .score-row.people    .score-name { color: var(--olive-deep); }
+  .score-row.strategy  .score-name { color: var(--slate-deep); }
+  .score-row.execution .score-name { color: var(--ochre-deep); }
+  .score-row.cash      .score-name { color: var(--terracotta-deep); }
+  .bar { height: 10px; background: var(--rule); border-radius: 6px; overflow: hidden; }
+  .bar > span { display: block; height: 100%; width: 0; transition: width 0.6s cubic-bezier(.2,.7,.2,1); }
+  .score-row.people    .bar > span { background: var(--olive); }
+  .score-row.strategy  .bar > span { background: var(--slate); }
+  .score-row.execution .bar > span { background: var(--ochre); }
+  .score-row.cash      .bar > span { background: var(--terracotta); }
+  .score-val { text-align: right; font-size: 14px; }
+  .score-val b { font-size: 19px; font-family: var(--serif); font-weight: 400; }
+  .score-band { display: block; font-size: 11px; color: var(--stone); margin-top: 2px; }
+
+  .total-line {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 2px solid var(--ink);
+  }
+  .total-line .tl-label { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+  .total-line .tl-val { font-family: var(--serif); font-size: 26px; }
+
+  .read {
+    margin-top: 26px;
+    background: var(--coral-tint);
+    border-left: 3px solid var(--coral);
+    padding: 18px 20px;
+    font-size: 14.5px;
+    line-height: 1.55;
+  }
+  .read strong { color: var(--coral-deep); }
+  .read .gap { margin-top: 12px; padding-top: 12px; border-top: 1px solid rgba(168,65,44,0.2); }
+
+  /* ---------- Open questions ---------- */
+  .open-wrap { padding: 8px 44px 36px; }
+  .open-head {
+    font-family: var(--serif);
+    font-size: 22px;
+    margin: 30px 0 6px;
+  }
+  .open-intro { font-size: 14px; color: var(--stone); margin-bottom: 20px; max-width: 56ch; }
+  .open-q { margin-bottom: 22px; }
+  .open-q .oq-text { font-size: 15px; font-weight: 600; margin-bottom: 4px; }
+  .open-q .oq-hint { font-size: 13px; color: var(--stone); font-style: italic; margin-bottom: 9px; }
+  .open-q textarea {
+    width: 100%;
+    min-height: 74px;
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.5;
+    color: var(--ink);
+    background: #fff;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: 11px 13px;
+    resize: vertical;
+  }
+  .open-q textarea:focus { outline: 2px solid var(--coral); outline-offset: 1px; }
+
+  .save-zone {
+    padding: 0 44px 48px;
+    display: flex;
+    gap: 14px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .save-zone .hint { font-size: 13px; color: var(--stone); }
+
+  /* ---------- Print summary (screen-hidden) ---------- */
+  #summary { display: none; }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width: 560px) {
+    body { padding: 16px 0 70px; }
+    .wrap { border-left: none; border-right: none; }
+    .cover { padding: 36px 22px 30px; }
+    .cover h1 { font-size: 31px; }
+    .who, .pillar-band, .pillar-head, .q, .actionbar, #results, .open-wrap, .save-zone { padding-left: 22px; padding-right: 22px; }
+    .scale-ends { width: 44px; font-size: 10px; }
+    .opt { font-size: 15px; min-height: 44px; }
+    .score-row { grid-template-columns: 78px 1fr 84px; gap: 10px; }
+  }
+
+  /* ---------- Print ---------- */
+  @media print {
+    @page { size: A4; margin: 16mm 15mm; }
+    body { background: #fff; padding: 0; }
+    .wrap, .cover, .who, .pillar, .actionbar, #results, .open-wrap, .save-zone { display: none !important; }
+    #summary {
+      display: block;
+      background: #fff;
+      color: var(--ink);
+      font-family: var(--sans);
+    }
+    .sum-eyebrow {
+      font-size: 9pt; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--coral-deep);
+    }
+    .sum-title { font-family: var(--serif); font-size: 26pt; line-height: 1.05; margin: 6px 0 4px; }
+    .sum-meta { font-size: 9.5pt; color: var(--stone); margin-bottom: 18px; border-bottom: 1px solid var(--rule); padding-bottom: 12px; }
+    .sum-meta b { color: var(--ink); }
+    .sum-scores { margin-bottom: 16px; }
+    .sum-score {
+      display: grid; grid-template-columns: 26mm 1fr 30mm;
+      align-items: center; gap: 8px;
+      padding: 7px 0; border-bottom: 0.5px solid var(--rule);
+    }
+    .sum-score .nm { font-size: 8.5pt; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; }
+    .sum-score .br { height: 7px; background: var(--rule); border-radius: 4px; overflow: hidden; }
+    .sum-score .br > span { display: block; height: 100%; }
+    .sum-score.people    .nm { color: var(--olive-deep); }    .sum-score.people    .br > span { background: var(--olive); }
+    .sum-score.strategy  .nm { color: var(--slate-deep); }    .sum-score.strategy  .br > span { background: var(--slate); }
+    .sum-score.execution .nm { color: var(--ochre-deep); }    .sum-score.execution .br > span { background: var(--ochre); }
+    .sum-score.cash      .nm { color: var(--terracotta-deep); } .sum-score.cash    .br > span { background: var(--terracotta); }
+    .sum-score .vl { text-align: right; font-size: 9.5pt; }
+    .sum-score .vl b { font-family: var(--serif); font-size: 13pt; }
+    .sum-total { display: flex; justify-content: space-between; align-items: baseline; border-top: 1.5pt solid var(--ink); padding-top: 8px; margin-bottom: 16px; }
+    .sum-total .l { font-size: 9pt; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    .sum-total .v { font-family: var(--serif); font-size: 18pt; }
+    .sum-read { background: var(--coral-tint); border-left: 2.5pt solid var(--coral); padding: 11px 13px; font-size: 9.5pt; line-height: 1.45; margin-bottom: 16px; }
+    .sum-read strong { color: var(--coral-deep); }
+    .sum-open { margin-bottom: 11px; }
+    .sum-open .q { font-size: 9pt; font-weight: 700; color: var(--ink); margin-bottom: 3px; padding: 0; border: none; }
+    .sum-open .a { font-size: 9.5pt; line-height: 1.4; color: var(--ink); min-height: 12pt; border-bottom: 0.5px solid var(--rule); padding-bottom: 6px; }
+    .sum-foot { margin-top: 18px; font-size: 8pt; color: var(--stone); border-top: 0.5px solid var(--rule); padding-top: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="wrap" id="app">
+
+  <!-- Cover -->
+  <section class="cover">
+    <div class="eyebrow">The 4 Decisions</div>
+    <h1>Where your business <em>actually</em> stands.</h1>
+    <p class="lead">Twenty questions across the four decisions every growing company has to get right. About ten minutes. Score yourself as the business runs today, not as you would like it to run.</p>
+    <p class="scale-note">Each statement gets a score from <strong>1 to 5</strong>. One means this is not true for your business. Five means it is strongly true, with clear evidence it happens consistently. The uncomfortable answers tend to be the useful ones, so be honest.</p>
+  </section>
+
+  <!-- Who -->
+  <section class="who">
+    <div class="field">
+      <label for="name">Your name</label>
+      <input id="name" type="text" autocomplete="name" placeholder="">
+    </div>
+    <div class="field">
+      <label for="company">Company</label>
+      <input id="company" type="text" autocomplete="organization" placeholder="">
+    </div>
+  </section>
+
+  <!-- Questions render here -->
+  <div id="questions"></div>
+
+  <!-- Results -->
+  <section id="results">
+    <h2>Your scores</h2>
+    <p class="sub">Each pillar is out of 25. The total is out of 100.</p>
+    <div id="scoreRows"></div>
+    <div class="total-line">
+      <span class="tl-label">Total</span>
+      <span class="tl-val"><span id="totalVal">0</span> / 100</span>
+    </div>
+    <div class="read" id="readBox"></div>
+  </section>
+
+  <!-- Open questions -->
+  <section class="open-wrap" id="openWrap" style="display:none;">
+    <div class="open-head">Three questions worth answering</div>
+    <p class="open-intro">These tell you, and your facilitator, what is actually going on. Short and specific beats long and vague.</p>
+
+    <div class="open-q">
+      <div class="oq-text">1. What is the single biggest constraint holding your business back right now?</div>
+      <div class="oq-hint">One sentence. Be specific. "Cash flow" is not specific.</div>
+      <textarea id="open1"></textarea>
+    </div>
+    <div class="open-q">
+      <div class="oq-text">2. If you could walk out of the Masterclass with one outcome that would make the whole day worthwhile, what would it be?</div>
+      <textarea id="open2"></textarea>
+    </div>
+    <div class="open-q">
+      <div class="oq-text">3. What is one decision you've been avoiding that you suspect you need to make?</div>
+      <textarea id="open3"></textarea>
+    </div>
+  </section>
+
+  <!-- Save -->
+  <section class="save-zone" id="saveZone" style="display:none;">
+    <button class="btn" id="saveBtn">Save my results</button>
+    <span class="hint">Opens your print dialog. Choose "Save as PDF", or print it and bring it to the workshop.</span>
+  </section>
+
+  <!-- Sticky action bar -->
+  <div class="actionbar" id="actionbar">
+    <div class="progress-text"><b id="answered">0</b> of 20 answered</div>
+    <button class="btn" id="showBtn" disabled>Show my results</button>
+  </div>
+
+</div>
+
+<!-- Print-only one-page summary -->
+<div id="summary"></div>
+
+<script>
+(function () {
+  "use strict";
+
+  var PILLARS = [
+    {
+      key: "people", label: "People", eyebrow: "The First Decision",
+      title: ["Right people, right seats, ", "right things."],
+      questions: [
+        "Our core values are written down, known by every employee, and we actively hire and fire based on them.",
+        "I can name every member of my leadership team and confidently say each one is in the right role for where the business is going.",
+        "My leadership team meets weekly and is able to debate difficult topics openly, regardless of who is most senior in the room.",
+        "I know which of my direct reports are A players, B players, and which ones I need to develop, coach up, or move on from.",
+        "Every key role in the company has a clear scorecard. The person in the role knows what they're measured on and what good looks like."
+      ]
+    },
+    {
+      key: "strategy", label: "Strategy", eyebrow: "The Second Decision",
+      title: ["A strategy your team can actually ", "articulate."],
+      questions: [
+        "We have a clearly defined Core Customer that we can describe in 25 words or less.",
+        "Our team can articulate three Brand Promises we make to customers, and we measure how well we deliver on each.",
+        "We have a Big Hairy Audacious Goal (BHAG) for the next 10 to 25 years, and people in the company know what it is.",
+        "We have an explicit differentiator that gives us a meaningful advantage competitors find hard to copy.",
+        "I can explain our strategy in under two minutes in a way a new hire or a customer would actually understand."
+      ]
+    },
+    {
+      key: "execution", label: "Execution", eyebrow: "The Third Decision",
+      title: ["Rhythm, priorities, and ", "accountability."],
+      questions: [
+        "We have one Critical Number for this quarter that everyone in the company knows and can articulate.",
+        "Every employee has 3 to 5 Quarterly Priorities that connect clearly to the company's overall priorities.",
+        "We have a daily huddle of 5 to 15 minutes where the team aligns on priorities, metrics, and what's stuck.",
+        "KPIs are reported weekly for each role or team, and every employee can answer whether they had a good week.",
+        "We have a clear chart showing who owns what across the business. No confusion about who is accountable."
+      ]
+    },
+    {
+      key: "cash", label: "Cash", eyebrow: "The Fourth Decision",
+      title: ["Cash to fund the growth you ", "want."],
+      questions: [
+        "I know my company's Cash Conversion Cycle. I can tell you roughly how many days pass between cash going out and coming back in.",
+        "I have at least three months of operating expenses in cash reserves at any given time.",
+        "I have analyzed the Power of One levers and know which two have the biggest impact on our cash flow.",
+        "We review our P&L and cash flow as a leadership team at least monthly. The numbers aren't only seen by the accountant.",
+        "We invoice quickly and have a clear, disciplined process for collecting receivables."
+      ]
+    }
+  ];
+
+  var TOTAL_Q = 20;
+  var answers = {}; // id -> 1..5
+
+  // Build questions UI
+  var qHost = document.getElementById("questions");
+  var globalNum = 0;
+
+  PILLARS.forEach(function (p) {
+    var sec = document.createElement("section");
+    sec.className = "pillar " + p.key;
+
+    var band = document.createElement("div");
+    band.className = "pillar-band";
+    band.innerHTML = '<span class="pb-name">' + p.label + '</span><span class="pb-count">Five questions</span>';
+    sec.appendChild(band);
+
+    var head = document.createElement("div");
+    head.className = "pillar-head";
+    head.innerHTML = '<div class="pillar-eyebrow">' + p.eyebrow + '</div>' +
+      '<div class="pillar-title">' + p.title[0] + '<em>' + p.title[1] + '</em></div>';
+    sec.appendChild(head);
+
+    p.questions.forEach(function (text, i) {
+      globalNum++;
+      var id = p.key + "_" + i;
+      var q = document.createElement("div");
+      q.className = "q";
+
+      var qt = document.createElement("div");
+      qt.className = "q-text";
+      qt.innerHTML = '<span class="q-num">' + globalNum + '</span>' + escapeHtml(text);
+      q.appendChild(qt);
+
+      var scale = document.createElement("div");
+      scale.className = "scale";
+      scale.innerHTML = '<span class="scale-ends">Not true</span>';
+
+      var opts = document.createElement("div");
+      opts.className = "opts";
+      for (var v = 1; v <= 5; v++) {
+        var b = document.createElement("button");
+        b.className = "opt";
+        b.type = "button";
+        b.textContent = v;
+        b.setAttribute("data-id", id);
+        b.setAttribute("data-val", v);
+        b.setAttribute("aria-label", "Score " + v + " for question " + globalNum);
+        b.addEventListener("click", onPick);
+        opts.appendChild(b);
+      }
+      scale.appendChild(opts);
+      scale.insertAdjacentHTML("beforeend", '<span class="scale-ends right">Strongly<br>true</span>');
+      q.appendChild(scale);
+      sec.appendChild(q);
+    });
+
+    qHost.appendChild(sec);
+  });
+
+  function onPick(e) {
+    var btn = e.currentTarget;
+    var id = btn.getAttribute("data-id");
+    var val = parseInt(btn.getAttribute("data-val"), 10);
+    answers[id] = val;
+
+    var group = btn.parentElement.querySelectorAll(".opt");
+    group.forEach(function (o) { o.classList.remove("sel"); });
+    btn.classList.add("sel");
+
+    updateProgress();
+  }
+
+  function answeredCount() { return Object.keys(answers).length; }
+
+  function updateProgress() {
+    var n = answeredCount();
+    document.getElementById("answered").textContent = n;
+    document.getElementById("showBtn").disabled = n < TOTAL_Q;
+  }
+
+  // Show results
+  document.getElementById("showBtn").addEventListener("click", function () {
+    if (answeredCount() < TOTAL_Q) return;
+    renderResults();
+    document.getElementById("results").style.display = "block";
+    document.getElementById("openWrap").style.display = "block";
+    document.getElementById("saveZone").style.display = "flex";
+    document.getElementById("results").scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  function pillarScore(p) {
+    var s = 0;
+    for (var i = 0; i < 5; i++) { s += answers[p.key + "_" + i] || 0; }
+    return s;
+  }
+
+  function band(score) {
+    if (score >= 20) return { name: "Strong", note: "The fundamentals are mostly in place. The work here is refinement." };
+    if (score >= 15) return { name: "Mixed", note: "Some of this is working, not enough of it to compound yet. This needs focused attention." };
+    if (score >= 10) return { name: "Significant gaps", note: "This is likely a real source of friction in the business right now." };
+    return { name: "Major opportunity", note: "This is probably holding the business back more than you realize." };
+  }
+
+  function renderResults() {
+    var rows = document.getElementById("scoreRows");
+    rows.innerHTML = "";
+    var scores = [];
+    var total = 0;
+
+    PILLARS.forEach(function (p) {
+      var sc = pillarScore(p);
+      total += sc;
+      scores.push({ p: p, sc: sc });
+
+      var b = band(sc);
+      var row = document.createElement("div");
+      row.className = "score-row " + p.key;
+      row.innerHTML =
+        '<div class="score-name">' + p.label + '</div>' +
+        '<div class="bar"><span style="width:' + (sc / 25 * 100) + '%"></span></div>' +
+        '<div class="score-val"><b>' + sc + '</b> / 25<span class="score-band">' + b.name + '</span></div>';
+      rows.appendChild(row);
+    });
+
+    document.getElementById("totalVal").textContent = total;
+
+    // Lowest pillar + gap
+    var sorted = scores.slice().sort(function (a, b) { return a.sc - b.sc; });
+    var lowest = sorted[0];
+    var highest = sorted[sorted.length - 1];
+    var gap = highest.sc - lowest.sc;
+
+    var read = '<strong>' + lowest.p.label + ' is your lowest pillar.</strong> ' + band(lowest.sc).note +
+      ' Most businesses don\'t stall because their strongest area isn\'t excellent. They stall because the weakest one drags everything else down. This is where the day pays you back most.';
+
+    if (gap > 6) {
+      read += '<div class="gap">Your highest and lowest pillars are ' + gap +
+        ' points apart. That gap is worth watching. The stronger pillar is being held back by the weaker one.</div>';
+    }
+    document.getElementById("readBox").innerHTML = read;
+  }
+
+  // Save -> build print summary, then print
+  document.getElementById("saveBtn").addEventListener("click", function () {
+    buildSummary();
+    window.print();
+  });
+
+  function buildSummary() {
+    var name = (document.getElementById("name").value || "").trim();
+    var company = (document.getElementById("company").value || "").trim();
+    var today = new Date().toLocaleDateString(undefined, { year: "numeric", month: "long", day: "numeric" });
+
+    var scores = [];
+    var total = 0;
+    PILLARS.forEach(function (p) {
+      var sc = pillarScore(p);
+      total += sc;
+      scores.push({ p: p, sc: sc });
+    });
+    var sorted = scores.slice().sort(function (a, b) { return a.sc - b.sc; });
+    var lowest = sorted[0];
+    var highest = sorted[sorted.length - 1];
+    var gap = highest.sc - lowest.sc;
+
+    var scoreHtml = scores.map(function (o) {
+      return '<div class="sum-score ' + o.p.key + '">' +
+        '<div class="nm">' + o.p.label + '</div>' +
+        '<div class="br"><span style="width:' + (o.sc / 25 * 100) + '%"></span></div>' +
+        '<div class="vl"><b>' + o.sc + '</b> / 25 · ' + band(o.sc).name + '</div>' +
+        '</div>';
+    }).join("");
+
+    var readHtml = '<strong>' + lowest.p.label + ' is your lowest pillar.</strong> ' + band(lowest.sc).note;
+    if (gap > 6) {
+      readHtml += ' Your highest and lowest pillars are ' + gap + ' points apart, so the stronger one is being held back by the weaker.';
+    }
+
+    var a1 = (document.getElementById("open1").value || "").trim();
+    var a2 = (document.getElementById("open2").value || "").trim();
+    var a3 = (document.getElementById("open3").value || "").trim();
+
+    var metaBits = [];
+    if (name) metaBits.push('<b>' + escapeHtml(name) + '</b>');
+    if (company) metaBits.push(escapeHtml(company));
+    metaBits.push(today);
+
+    document.getElementById("summary").innerHTML =
+      '<div class="sum-eyebrow">The 4 Decisions Diagnostic</div>' +
+      '<div class="sum-title">Where your business stands</div>' +
+      '<div class="sum-meta">' + metaBits.join(" &nbsp;·&nbsp; ") + '</div>' +
+      '<div class="sum-scores">' + scoreHtml + '</div>' +
+      '<div class="sum-total"><span class="l">Total</span><span class="v">' + total + ' / 100</span></div>' +
+      '<div class="sum-read">' + readHtml + '</div>' +
+      '<div class="sum-open"><div class="q">Biggest constraint right now</div><div class="a">' + escapeHtml(a1) + '</div></div>' +
+      '<div class="sum-open"><div class="q">One outcome that would make the day worthwhile</div><div class="a">' + escapeHtml(a2) + '</div></div>' +
+      '<div class="sum-open"><div class="q">A decision I\'ve been avoiding</div><div class="a">' + escapeHtml(a3) + '</div></div>' +
+      '<div class="sum-foot">Frameworks adapted from Scaling Up by Verne Harnish. Prepared for the Scaling Up Masterclass.</div>';
+  }
+
+  function escapeHtml(s) {
+    return String(s)
+      .replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;").replace(/'/g, "&#39;");
+  }
+
+  updateProgress();
+})();
+</script>
+</body>
+</html>
